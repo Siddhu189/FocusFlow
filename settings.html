@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FocusFlow Settings</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚙ FocusFlow Settings</h1>
+
+<!-- Profile -->
+<div class="profile-box">
+
+<img id="avatar" src="https://i.imgur.com/6VBx3io.png">
+
+<br><br>
+
+<input type="file"
+id="fileInput"
+accept="image/*"
+style="display:none"
+onchange="changePhoto(event)">
+
+<button onclick="document.getElementById('fileInput').click()">
+📷 Edit Profile Pic
+</button>
+
+<br><br>
+
+<h3 id="username">Sid</h3>
+
+<button onclick="editName()">✏ Edit Name</button>
+
+<p id="profilexp">⚡ Level 1 | 🏆 0 Coins</p>
+
+</div>
+
+<!-- Stats Boxes -->
+<div class="stats-grid">
+
+<div class="stat-box">
+<h4>🏆 Rewards</h4>
+<p id="coins">0</p>
+</div>
+
+<div class="stat-box">
+<h4>📈 Daily Score</h4>
+<p id="score">0</p>
+</div>
+
+<div class="stat-box">
+<h4>⚡ XP Level</h4>
+<p id="xp">1</p>
+</div>
+
+</div>
+
+<!-- Graph -->
+<div class="graph-box">
+
+<h3>📊 Progress Graph</h3>
+
+<div class="bar-wrap">
+<span>Rewards</span>
+<div class="bar"><div id="barCoins"></div></div>
+</div>
+
+<div class="bar-wrap">
+<span>Score</span>
+<div class="bar"><div id="barScore"></div></div>
+</div>
+
+<div class="bar-wrap">
+<span>XP</span>
+<div class="bar"><div id="barXp"></div></div>
+</div>
+
+</div>
+
+<br>
+
+<button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<br><br>
+
+<button onclick="resetData()">🗑 Reset All Data</button>
+
+<br><br>
+
+<a href="index.html">
+<button>⬅ Back</button>
+</a>
+
+</div>
+
+<script>
+let coins = parseInt(localStorage.getItem("coins")) || 0;
+let completed = parseInt(localStorage.getItem("completed")) || 0;
+let level = Math.floor(coins / 20) + 1;
+
+/* numbers */
+document.getElementById("coins").innerText = coins;
+document.getElementById("score").innerText = completed;
+document.getElementById("xp").innerText = level;
+
+document.getElementById("profilexp").innerText =
+"⚡ Level " + level + " | 🏆 " + coins + " Coins";
+
+/* graph */
+document.getElementById("barCoins").style.width =
+Math.min(coins,100) + "%";
+
+document.getElementById("barScore").style.width =
+Math.min(completed*10,100) + "%";
+
+document.getElementById("barXp").style.width =
+Math.min(level*10,100) + "%";
+
+/* name */
+let savedName = localStorage.getItem("username") || "Sid";
+document.getElementById("username").innerText = savedName;
+
+/* photo */
+let savedPhoto = localStorage.getItem("profilePhoto");
+if(savedPhoto){
+document.getElementById("avatar").src = savedPhoto;
+}
+
+function changePhoto(event){
+let file = event.target.files[0];
+if(!file) return;
+
+let reader = new FileReader();
+
+reader.onload = function(e){
+let img = e.target.result;
+document.getElementById("avatar").src = img;
+localStorage.setItem("profilePhoto", img);
+};
+
+reader.readAsDataURL(file);
+}
+
+function editName(){
+let name = prompt("Enter your name:", savedName);
+
+if(name){
+localStorage.setItem("username", name);
+document.getElementById("username").innerText = name;
+}
+}
+
+function toggleDarkMode(){
+document.body.classList.toggle("dark");
+}
+
+function resetData(){
+localStorage.clear();
+alert("All Data Reset");
+location.reload();
+}
+</script>
+
+</body>
+</html>

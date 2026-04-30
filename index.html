@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FocusFlow</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>🔥 FocusFlow</h1>
+
+<p id="date"></p>
+
+<div class="quote-box">
+<p id="quote"></p>
+</div>
+
+<button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<h3 id="streak">🔥 Completed: 0</h3>
+
+<p id="report">📊 Early: 0 | 🔴 Late: 0</p>
+
+<div class="progress-box">
+<div id="progress"></div>
+</div>
+
+<div class="input-box">
+<input type="text" id="taskInput" placeholder="Enter task...">
+<button onclick="addTask()">Add</button>
+</div>
+
+<ul id="taskList"></ul>
+
+<button onclick="clearAll()">🗑 Clear All</button>
+
+<br><br>
+
+<a href="settings.html">
+<button>⚙ Settings</button>
+</a>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
